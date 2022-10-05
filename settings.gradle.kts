@@ -1,0 +1,1 @@
+rootProject.name = "carmine-cuofano-revolut-test"
