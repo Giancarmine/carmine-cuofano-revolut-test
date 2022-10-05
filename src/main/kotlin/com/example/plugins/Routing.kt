@@ -12,5 +12,11 @@ fun Application.configureRouting() {
         get("/") {
             call.respondText("Hello World!")
         }
+        get("/hello/{username}") {
+            call.respondText("Hello World!")
+        }
+        post("/hello/{username}") {
+            call.respondText("Hello World!")
+        }
     }
 }
