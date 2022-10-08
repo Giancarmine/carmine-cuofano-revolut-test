@@ -10,7 +10,7 @@ fun Application.configureRouting() {
 
     routing {
         get("/") {
-            call.respondText("Hello World!")
+            call.respondRedirect("/swagger-ui.html")
         }
         get("/hello/{username}") {
             call.respondText("Hello World!")
