@@ -16,17 +16,25 @@ fun Application.configureRouting() {
         get("/hello/{username}") {
             val username: String = call.parameters["username"]!!
             println("Received $username")
-            val result = userService.find(username)
 
-            call.respond(HttpStatusCode.OK, result)
+            val msg = userService.sayHello(username)
+
+            if (msg != null) {
+                call.respond(HttpStatusCode.OK, msg)
+            } else {
+                call.respond(HttpStatusCode.NoContent)
+            }
         }
 
         put("/hello/{username}") {
             val userDto = call.receive<BirthOfDateDTO>()
-
             val username: String = call.parameters["username"]!!
-            userService.insert(username, LocalDate.parse(userDto.dateOfBirth))
-            call.respond(HttpStatusCode.Created)
+
+            if (userService.insertOrUpdate(username, LocalDate.parse(userDto.dateOfBirth))) {
+                call.respond(HttpStatusCode.Created)
+            } else {
+                call.respond(HttpStatusCode.OK)
+            }
         }
     }
 }

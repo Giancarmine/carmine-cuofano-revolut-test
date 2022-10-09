@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
 class UserRepository {
-    fun find(username: String): User {
+    fun find(username: String): User? {
         return transaction {
             Users.select { Users.username eq username }
                 .map {
@@ -16,7 +16,7 @@ class UserRepository {
                         it[Users.username],
                         it[Users.dateOfBirth]
                     )
-                }.first()
+                }.firstOrNull()
         }
     }
 
@@ -31,7 +31,7 @@ class UserRepository {
 
     fun update(user: User): Int {
         return transaction {
-            Users.update({ Users.username eq id }) {
+            Users.update({ Users.username eq user.username }) {
                 it[username] = user.username
                 it[dateOfBirth] = user.dateOfBirth
             }
