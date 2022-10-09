@@ -1,6 +1,6 @@
 package com.example.plugins
 
-import com.example.model.Users
+import com.example.model.dao.Users
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jetbrains.exposed.sql.Database
@@ -16,7 +16,6 @@ object DatabaseFactory {
     }
 
     private fun initDB() {
-        // database connection is handled from hikari properties
         val config = HikariConfig("/hikari.properties")
         val ds = HikariDataSource(config)
         Database.connect(ds)

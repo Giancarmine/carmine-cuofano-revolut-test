@@ -3,7 +3,6 @@ package com.example.model.dto
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserDTO(
-    val username: String,
+data class DateOfBirthDTO(
     val dateOfBirth: String
 )

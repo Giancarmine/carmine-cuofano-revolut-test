@@ -1,6 +1,6 @@
 package com.example.service
 
-import com.example.model.User
+import com.example.model.dao.User
 import com.example.repository.UserRepository
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -8,20 +8,6 @@ import java.time.temporal.ChronoUnit
 
 class UserService {
     private val userRepository = UserRepository()
-
-    fun find(username: String): User? {
-        return userRepository.find(username)
-    }
-
-    fun insert(username: String, dateOfBirth: LocalDate): Boolean {
-        userRepository.insert(User(username, dateOfBirth))
-        return true
-    }
-
-    fun update(username: String, dateOfBirth: LocalDate): Boolean {
-        userRepository.update(User(username, dateOfBirth))
-        return true
-    }
 
     fun insertOrUpdate(username: String, dateOfBirth: LocalDate): Boolean {
         val user = userRepository.find(username)
@@ -58,4 +44,19 @@ class UserService {
         return Math.toIntExact(daysUntilNextBirthday)
     }
 
+    private fun find(username: String): User? {
+        return userRepository.find(username)
+    }
+
+    private fun insert(username: String, dateOfBirth: LocalDate): Boolean {
+        return userRepository.insert(User(username, dateOfBirth)) > 0
+    }
+
+    private fun update(username: String, dateOfBirth: LocalDate): Boolean {
+        return userRepository.update(User(username, dateOfBirth)) > 0
+    }
+
+    fun deleteAll() {
+        return userRepository.deleteAll()
+    }
 }

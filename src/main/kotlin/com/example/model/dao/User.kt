@@ -1,4 +1,4 @@
-package com.example.model
+package com.example.model.dao
 
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.date

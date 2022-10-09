@@ -1,6 +1,8 @@
 package com.example.plugins
 
-import com.example.model.dto.BirthOfDateDTO
+import com.example.model.dto.DateOfBirthDTO
+import com.example.model.dto.ErrorDTO
+import com.example.model.dto.HelloDTO
 import com.example.service.UserService
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -15,20 +17,25 @@ fun Application.configureRouting() {
     routing {
         get("/hello/{username}") {
             val username: String = call.parameters["username"]!!
-            println("Received $username")
+            if (!username.contains("^[A-Za-z]*$")) {
+                call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
+            }
 
             val msg = userService.sayHello(username)
 
             if (msg != null) {
-                call.respond(HttpStatusCode.OK, msg)
+                call.respond(HttpStatusCode.OK, HelloDTO(msg))
             } else {
                 call.respond(HttpStatusCode.NoContent)
             }
         }
 
         put("/hello/{username}") {
-            val userDto = call.receive<BirthOfDateDTO>()
+            val userDto = call.receive<DateOfBirthDTO>()
             val username: String = call.parameters["username"]!!
+            if (!username.contains("^[A-Za-z]*$")) {
+                call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
+            }
 
             if (userService.insertOrUpdate(username, LocalDate.parse(userDto.dateOfBirth))) {
                 call.respond(HttpStatusCode.Created)

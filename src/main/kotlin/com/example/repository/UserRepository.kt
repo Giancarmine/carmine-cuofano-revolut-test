@@ -1,7 +1,8 @@
 package com.example.repository
 
-import com.example.model.User
-import com.example.model.Users
+import com.example.model.dao.User
+import com.example.model.dao.Users
+import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -35,6 +36,12 @@ class UserRepository {
                 it[username] = user.username
                 it[dateOfBirth] = user.dateOfBirth
             }
+        }
+    }
+
+    fun deleteAll() {
+        return transaction {
+            Users.deleteAll()
         }
     }
 }
