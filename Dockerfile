@@ -1,10 +1,12 @@
+FROM gradle:jdk11-alpine AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build --no-daemon
+
 FROM openjdk:11-jdk
 EXPOSE 8080:8080
 
-VOLUME /tmp
-
 RUN mkdir /app
-CMD ./gradlew build
+COPY --from=build /home/gradle/src/build/libs/ /app/
 
-COPY ./build/libs/carmine-cuofano-revolut-test-all.jar /app/app.jar
-ENTRYPOINT ["java", "-cp", "/app/app.jar", "com.example.ApplicationKt"]
+ENTRYPOINT ["java","-jar","/app/carmine-cuofano-revolut-test-0.0.1.jar", "com.example.ApplicationKt"]

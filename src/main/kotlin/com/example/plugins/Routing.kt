@@ -1,22 +1,32 @@
 package com.example.plugins
 
-import io.ktor.server.routing.*
+import com.example.service.UserService
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.response.*
 import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import java.time.LocalDate
 
 fun Application.configureRouting() {
+    val userService = UserService()
 
     routing {
-        get("/") {
-            call.respondRedirect("/swagger-ui.html")
-        }
         get("/hello/{username}") {
-            call.respondText("Hello World!")
+            val username: String = call.parameters["username"]!!
+            println("Received $username")
+            val result = userService.find(username)
+            call.respond(HttpStatusCode.OK, result)
         }
-        post("/hello/{username}") {
-            call.respondText("Hello World!")
+
+        put("/hello/{username}") {
+            val userDto = call.receiveText()
+
+            val username: String = call.parameters["username"]!!
+            userService.insert(username, LocalDate.now())
+            call.respond(HttpStatusCode.Created)
+
+//            val userDTO = call.receive<UserDTO>()
         }
     }
 }

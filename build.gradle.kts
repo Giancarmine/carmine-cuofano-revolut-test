@@ -1,6 +1,10 @@
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
+val exposed_version: String by project
+val hikari_version: String by project
+val postgres_version: String by project
+val kodein_version: String by project
 
 plugins {
     application
@@ -22,12 +26,6 @@ repositories {
     mavenCentral()
 }
 
-ktor {
-    fatJar {
-        archiveFileName.set("app.jar")
-    }
-}
-
 dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
@@ -38,9 +36,10 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
     // Exposed ORM library
-    implementation ("org.jetbrains.exposed:exposed-core:0.35.1")
-    implementation ("org.jetbrains.exposed:exposed-dao:0.35.1")
-    implementation ("org.jetbrains.exposed:exposed-jdbc:0.35.1")
-    implementation ("org.postgresql:postgresql:42.2.26")
-    implementation ("com.zaxxer:HikariCP:3.4.2")
+    implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
+    implementation("org.postgresql:postgresql:$postgres_version")
+    implementation("com.zaxxer:HikariCP:$hikari_version")
 }
