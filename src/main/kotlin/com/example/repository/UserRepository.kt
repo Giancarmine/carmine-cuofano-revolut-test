@@ -8,16 +8,6 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
 class UserRepository {
-    fun insertOrUpdate(user: User): Boolean {
-        val retrievedUser: User = find(user.username)
-
-//        val ret = retrievedUser != null ?
-//            insert(user)
-//            : update(user)
-
-        return true
-    }
-
     fun find(username: String): User {
         return transaction {
             Users.select { Users.username eq username }

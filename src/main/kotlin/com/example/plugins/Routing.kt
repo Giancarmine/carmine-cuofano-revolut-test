@@ -1,5 +1,6 @@
 package com.example.plugins
 
+import com.example.model.dto.BirthOfDateDTO
 import com.example.service.UserService
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -16,17 +17,16 @@ fun Application.configureRouting() {
             val username: String = call.parameters["username"]!!
             println("Received $username")
             val result = userService.find(username)
+
             call.respond(HttpStatusCode.OK, result)
         }
 
         put("/hello/{username}") {
-            val userDto = call.receiveText()
+            val userDto = call.receive<BirthOfDateDTO>()
 
             val username: String = call.parameters["username"]!!
-            userService.insert(username, LocalDate.now())
+            userService.insert(username, LocalDate.parse(userDto.dateOfBirth))
             call.respond(HttpStatusCode.Created)
-
-//            val userDTO = call.receive<UserDTO>()
         }
     }
 }
