@@ -17,7 +17,7 @@ fun Application.configureRouting() {
     routing {
         get("/hello/{username}") {
             val username: String = call.parameters["username"]!!
-            if (!username.contains("^[A-Za-z]*$")) {
+            if (!username.matches("^[A-Za-z]*$".toRegex())) {
                 call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
             }
 
