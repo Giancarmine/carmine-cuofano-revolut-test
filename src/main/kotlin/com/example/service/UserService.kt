@@ -13,10 +13,10 @@ class UserService {
         val user = userRepository.find(username)
 
         return if (user == null) {
-            userRepository.insert(User(username, dateOfBirth))
+            insert(username, dateOfBirth)
         } else {
-            userRepository.update(User(username, dateOfBirth))
-        } > 0
+            update(username, dateOfBirth)
+        }
     }
 
     fun sayHello(username: String): String? {
@@ -48,7 +48,7 @@ class UserService {
         return userRepository.find(username)
     }
 
-    private fun insert(username: String, dateOfBirth: LocalDate): Boolean {
+    fun insert(username: String, dateOfBirth: LocalDate): Boolean {
         return userRepository.insert(User(username, dateOfBirth)) > 0
     }
 
