@@ -3,13 +3,14 @@ package com.example
 import com.example.plugins.DatabaseFactory
 import com.example.service.UserService
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
-import org.junit.Before
 import java.time.LocalDate
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class ApplicationTest {
     private var testUser = "rvlTest"
@@ -53,11 +54,13 @@ class ApplicationTest {
         val response = client.get("/hello/$testUser")
 
         assertEquals(HttpStatusCode.OK, response.status)
+        assertEquals("""{"message":"Hello, $testUser! Happy birthday!"}""", response.bodyAsText())
     }
 
     @Test
     fun testPutANewUserWithNotTodayBDay() = testApplication {
         userService.deleteAll()
+        userService.insert(testUser, todayDate)
         val response = client.put("/hello/$testUser") {
             contentType(ContentType.Application.Json)
             setBody(notTodayBody)
@@ -73,6 +76,7 @@ class ApplicationTest {
         val response = client.get("/hello/$testUser")
 
         assertEquals(HttpStatusCode.OK, response.status)
+        assertTrue { response.bodyAsText().startsWith("""{"message":"Hello, $testUser! Your birthday is in """) }
     }
 
     @Test
