@@ -1,12 +1,28 @@
-FROM gradle:jdk11-alpine AS build
+# using multistage docker build
+# ref: https://docs.docker.com/develop/develop-images/multistage-build/
+
+# temp container to build using gradle
+FROM gradle:5.3.0-jdk-alpine AS TEMP_BUILD_IMAGE
+ENV APP_HOME=/usr/app/
+WORKDIR $APP_HOME
+COPY build.gradle settings.gradle $APP_HOME
+
+COPY gradle $APP_HOME/gradle
 COPY --chown=gradle:gradle . /home/gradle/src
-WORKDIR /home/gradle/src
-RUN gradle build --no-daemon
+USER root
+RUN chown -R gradle /home/gradle/src
 
-FROM openjdk:11-jdk
-EXPOSE 8080:8080
+RUN gradle build || return 0
+COPY . .
+RUN gradle clean build
 
-RUN mkdir /app
-COPY --from=build /home/gradle/src/build/libs/ /app/
+# actual container
+FROM adoptopenjdk/openjdk11:alpine-jre
+ENV ARTIFACT_NAME=carmine-cuofano-revolut-test-0.0.1.jar
+ENV APP_HOME=/usr/app/
 
-ENTRYPOINT ["java","-jar","/app/carmine-cuofano-revolut-test-0.0.1.jar", "com.example.ApplicationKt"]
+WORKDIR $APP_HOME
+COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME .
+
+EXPOSE 8080
+ENTRYPOINT ["java","-jar", "carmine-cuofano-revolut-test-0.0.1.jar", "com.example.ApplicationKt"]

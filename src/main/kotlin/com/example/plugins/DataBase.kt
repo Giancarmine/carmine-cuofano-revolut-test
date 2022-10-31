@@ -17,6 +17,7 @@ object DatabaseFactory {
 
     private fun initDB() {
         val config = HikariConfig("/hikari.properties")
+        config.addDataSourceProperty("password", System.getenv("SECRET_KEY_BASE"))
         val ds = HikariDataSource(config)
         Database.connect(ds)
     }
