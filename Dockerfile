@@ -1,4 +1,5 @@
 FROM gradle:7-jdk11 AS build
+ARG SECRET_KEY_BASE
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle build --no-daemon
