@@ -17,7 +17,7 @@ DevOps Carmine Cuofano Engineer Test
 - How?
 
     - Using Postman
-        - Download and import env files and requests files from [`/postman`]() dir
+        - Download and import env files and requests files from [`/postman`](https://github.com/Giancarmine/carmine-cuofano-revolut-test/tree/main/postman) dir
 
     - Using curl
         - GET hello endpoint
