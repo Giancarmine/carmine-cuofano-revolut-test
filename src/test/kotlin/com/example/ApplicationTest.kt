@@ -36,16 +36,16 @@ class ApplicationTest {
         assertEquals(HttpStatusCode.NoContent, response.status)
     }
 
-//    @Test
-//    fun testPutANewUserWithTodayBDay() = testApplication {
-//        userService.deleteAll()
-//        val response = client.put("/hello/$testUser") {
-//            contentType(ContentType.Application.Json)
-//            setBody(todayBody)
-//        }
-//
-//        assertEquals(HttpStatusCode.Created, response.status)
-//    }
+    @Test
+    fun testPutANewUserWithTodayBDay() = testApplication {
+        userService.deleteAll()
+        val response = client.put("/hello/$testUser") {
+            contentType(ContentType.Application.Json)
+            setBody(todayBody)
+        }
+
+        assertEquals(HttpStatusCode.Created, response.status)
+    }
 
     @Test
     fun testGetUserWithTodayBData() = testApplication {
@@ -57,17 +57,17 @@ class ApplicationTest {
         assertEquals("""{"message":"Hello, $testUser! Happy birthday!"}""", response.bodyAsText())
     }
 
-//    @Test
-//    fun testPutANewUserWithNotTodayBDay() = testApplication {
-//        userService.deleteAll()
-//        userService.insert(testUser, todayDate)
-//        val response = client.put("/hello/$testUser") {
-//            contentType(ContentType.Application.Json)
-//            setBody(notTodayBody)
-//        }
-//
-//        assertEquals(HttpStatusCode.Created, response.status)
-//    }
+    @Test
+    fun testPutANewUserWithNotTodayBDay() = testApplication {
+        userService.deleteAll()
+        userService.insert(testUser, todayDate)
+        val response = client.put("/hello/$testUser") {
+            contentType(ContentType.Application.Json)
+            setBody(notTodayBody)
+        }
+
+        assertEquals(HttpStatusCode.Created, response.status)
+    }
 
     @Test
     fun testGetUserWithNotTodayBData() = testApplication {
