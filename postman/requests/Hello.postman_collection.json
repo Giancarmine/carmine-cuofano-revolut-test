@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "e7d7baf3-c9c2-45dc-a216-db21f4d7009c",
+		"name": "Hello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2774091"
+	},
+	"item": [
+		{
+			"name": "Hello Username",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/hello/pippo",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hello",
+						"pippo"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Hello w/ a bad Username",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/hello/pippo123",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"hello",
+								"pippo123"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "62"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"errorMessage\": \"Only letters are allowed for username param\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Hello Username",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dateOfBirth\": \"1995-10-22\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/hello/pippo",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hello",
+						"pippo"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Hello /w a bad Username",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dateOfBirth\": \"1995-10-22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{url}}/hello/pippo123",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"hello",
+								"pippo123"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 01 Nov 2022 12:35:34 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "7634abc2f88bff28-MAD"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}

@@ -10,14 +10,14 @@ DevOps Carmine Cuofano Engineer Test
 
 - Where?
 
-    - Online demo - You can find an on-line demo deployed on [render.com](https://render.com/) in a docker container
+    - Online demo - You can find an online demo deployed on [render.com](https://render.com/) in a docker container
     - Running it locally running by Docker
     - Running it locally running by Java
 
 - How?
 
     - Using Postman
-        - Download and import env files and requests files from `/postman` dir
+        - Download and import env files and requests files from [`/postman`]() dir
 
     - Using curl
         - GET hello endpoint
