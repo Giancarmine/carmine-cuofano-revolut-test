@@ -13,7 +13,23 @@ DevOps Carmine Cuofano Engineer Test
 
     - Online demo - You can find an online demo deployed on [render.com](https://render.com/) in a docker container
     - Running it locally running by Docker
+        - Build image
+          ``` bash
+          docker build -t carmine-cuofano-revolut-test .
+          ```
+        - Run image
+          ``` bash
+          docker run -d carmine-cuofano-revolut-test -e SECRET_KEY_BASE=<SECRET_DB_PASSWORD>
+          ```
     - Running it locally running by Java
+        - Add DB password to env
+          ``` bash
+          export SECRET_KEY_BASE=<SECRET_DB_PASSWORD>
+          ```
+        - Build image
+          ``` bash
+          java -jar ./carmine-cuofano-revolut-test-all.jar
+          ```
 
 - How?
 

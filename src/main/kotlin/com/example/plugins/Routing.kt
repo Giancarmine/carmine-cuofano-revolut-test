@@ -37,7 +37,7 @@ fun Application.configureRouting() {
 
             if (!username.chars().allMatch(Character::isLetter)) {
                 call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
-            } else if (LocalDate.now().isBefore(dateOfBirth) || LocalDate.now().isEqual(dateOfBirth)) {
+            } else if (LocalDate.now().isAfter(dateOfBirth) || LocalDate.now().isEqual(dateOfBirth)) {
                 call.respond(HttpStatusCode.BadRequest, ErrorDTO("dateOfBirth value should be before today date"))
             } else {
                 if (userService.insertOrUpdate(username, dateOfBirth)) {
