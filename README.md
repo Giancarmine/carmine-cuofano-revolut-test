@@ -38,6 +38,65 @@ DevOps Carmine Cuofano Engineer Test
 
 ## About The Project:
 
+This is a simple hello-world project that exposes the following
+
+HTTP-based APIs:
+
+Description:
+Saves/updates the given user’s name and date of birth in the database.
+
+Request:
+
+``` bash
+PUT /hello/<username> { “dateOfBirth”: “YYYY-MM-DD” }
+```
+
+Response:
+
+``` bash
+204 No Content
+```
+
+Note:
+
+*username must contain only letters.*
+
+*YYYY-MM-DD must be a date before the today date.*
+
+Description:
+
+Returns hello birthday message for the given user
+
+Request:
+
+``` bash
+Get /hello/<username>
+```
+
+Response:
+
+``` bash
+200 OK
+```
+
+Response Examples:
+
+- If username’s birthday is in N days:
+
+   ``` bash
+   {
+       “message”: “Hello, <username>! Your birthday is in N day(s)”
+   }
+   ```
+
+- If username’s birthday is today:
+
+   ``` bash
+   {
+      “message”: “Hello, <username>! Happy birthday!”
+   }
+   ```
+
 ### Built With
 
 * [![ktor][ktor]][ktor-url]
