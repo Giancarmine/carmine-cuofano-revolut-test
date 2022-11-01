@@ -121,6 +121,7 @@ DevOps Carmine Cuofano Engineer Test
 [gradle]: https://img.shields.io/badge/Gradle-v.7.5.1-green
 
 [gradle-url]: https://gradle.org/
-[postgres]: https://img.shields.io/badge/Postgres-v.7.5.1-blue
 
-[postgres-url]: https://gradle.org/
+[postgres]: https://img.shields.io/badge/PostgreSQL-v.14-9cf
+
+[postgres-url]: https://www.postgresql.org/about/news/postgresql-14-released-2318/
