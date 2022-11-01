@@ -17,6 +17,12 @@ DevOps Carmine Cuofano Engineer Test
       </ul>
     </li>
     <li>
+      <a href="#documentation">Documentation</a>
+      <ul>
+        <li><a href="#built-with"></a></li>
+      </ul>
+    </li>
+    <li>
       <a href="#try-it">Try it</a>
       <ul>
         <li>Where?</li>
@@ -29,6 +35,14 @@ DevOps Carmine Cuofano Engineer Test
 </details>
 
 ---
+
+## About The Project:
+
+### Built With
+
+* [![ktor][ktor]][ktor-url]
+* [![gradle][gradle]][gradle-url]
+* [![postgres][postgres]][postgres-url]
 
 ## Try it:
 
@@ -94,3 +108,19 @@ DevOps Carmine Cuofano Engineer Test
 [MIT](https://choosealicense.com/licenses/mit/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[ktor]: https://img.shields.io/badge/Ktor-v.2.1.2-blue
+
+[ktor-url]: https://ktor.io/
+
+[gradle]: https://img.shields.io/badge/Gradle-v.7.5.1-green
+
+[gradle-url]: https://gradle.org/
+[postgres]: https://img.shields.io/badge/Postgres-v.7.5.1-blue
+
+[postgres-url]: https://gradle.org/
