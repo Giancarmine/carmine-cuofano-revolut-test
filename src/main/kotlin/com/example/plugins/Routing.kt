@@ -17,30 +17,31 @@ fun Application.configureRouting() {
     routing {
         get("/hello/{username}") {
             val username: String = call.parameters["username"]!!
-            if (!username.matches("^[A-Za-z]*$".toRegex())) {
-                call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
-            }
+            if (username.chars().allMatch(Character::isLetter)) {
+                val msg = userService.sayHello(username)
 
-            val msg = userService.sayHello(username)
-
-            if (msg != null) {
-                call.respond(HttpStatusCode.OK, HelloDTO(msg))
+                if (msg != null) {
+                    call.respond(HttpStatusCode.OK, HelloDTO(msg))
+                } else {
+                    call.respond(HttpStatusCode.NoContent)
+                }
             } else {
-                call.respond(HttpStatusCode.NoContent)
+                call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
             }
         }
 
         put("/hello/{username}") {
             val userDto = call.receive<DateOfBirthDTO>()
             val username: String = call.parameters["username"]!!
-            if (!username.contains("^[A-Za-z]*$")) {
-                call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
-            }
 
-            if (userService.insertOrUpdate(username, LocalDate.parse(userDto.dateOfBirth))) {
-                call.respond(HttpStatusCode.Created)
+            if (username.chars().allMatch(Character::isLetter)) {
+                if (userService.insertOrUpdate(username, LocalDate.parse(userDto.dateOfBirth))) {
+                    call.respond(HttpStatusCode.Created)
+                } else {
+                    call.respond(HttpStatusCode.OK)
+                }
             } else {
-                call.respond(HttpStatusCode.OK)
+                call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
             }
         }
     }
