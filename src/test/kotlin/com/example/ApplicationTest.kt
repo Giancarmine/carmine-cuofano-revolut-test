@@ -16,9 +16,11 @@ class ApplicationTest {
     private var testUser = "rvlTest"
     private var badTestUser = "rvlTest123"
     private var todayDate = LocalDate.now()
+    private var todayLastYearDate = LocalDate.now().minusYears(1)
     private var notTodayDate = LocalDate.now().minusYears(18).minusWeeks(2)
 
     private var todayBody = """{"dateOfBirth": "$todayDate"}""".trimIndent()
+    private var todayLastYearBody = """{"dateOfBirth": "$todayLastYearDate"}""".trimIndent()
     private var notTodayBody = """{"dateOfBirth": "$notTodayDate"}""".trimIndent()
 
     private var userService = UserService()
@@ -42,6 +44,18 @@ class ApplicationTest {
         val response = client.put("/hello/$testUser") {
             contentType(ContentType.Application.Json)
             setBody(todayBody)
+        }
+
+        assertEquals(HttpStatusCode.BadRequest, response.status)
+        assertEquals("""{"errorMessage":"dateOfBirth value should be before today date"}""", response.bodyAsText())
+    }
+
+    @Test
+    fun testPutANewUserWithTodayLastYearBDay() = testApplication {
+        userService.deleteAll()
+        val response = client.put("/hello/$testUser") {
+            contentType(ContentType.Application.Json)
+            setBody(todayLastYearBody)
         }
 
         assertEquals(HttpStatusCode.Created, response.status)

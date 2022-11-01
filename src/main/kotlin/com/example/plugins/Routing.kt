@@ -32,16 +32,19 @@ fun Application.configureRouting() {
 
         put("/hello/{username}") {
             val userDto = call.receive<DateOfBirthDTO>()
+            val dateOfBirth = LocalDate.parse(userDto.dateOfBirth)
             val username: String = call.parameters["username"]!!
 
-            if (username.chars().allMatch(Character::isLetter)) {
-                if (userService.insertOrUpdate(username, LocalDate.parse(userDto.dateOfBirth))) {
+            if (!username.chars().allMatch(Character::isLetter)) {
+                call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
+            } else if (LocalDate.now().isBefore(dateOfBirth) || LocalDate.now().isEqual(dateOfBirth)) {
+                call.respond(HttpStatusCode.BadRequest, ErrorDTO("dateOfBirth value should be before today date"))
+            } else {
+                if (userService.insertOrUpdate(username, dateOfBirth)) {
                     call.respond(HttpStatusCode.Created)
                 } else {
                     call.respond(HttpStatusCode.OK)
                 }
-            } else {
-                call.respond(HttpStatusCode.BadRequest, ErrorDTO("Only letters are allowed for username param"))
             }
         }
     }
