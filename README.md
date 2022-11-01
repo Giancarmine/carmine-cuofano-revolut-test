@@ -42,66 +42,71 @@ This is a simple hello-world project that exposes the following
 
 HTTP-based APIs:
 
-Description:
+### Description:
+
 Saves/updates the given user’s name and date of birth in the database.
 
-Request:
+#### Request:
 
 ``` bash
 PUT /hello/<username> { “dateOfBirth”: “YYYY-MM-DD” }
 ```
 
-Response:
+#### Response:
 
 ``` bash
 204 No Content
 ```
 
-Note:
-
-*username must contain only letters.*
-
-*YYYY-MM-DD must be a date before the today date.*
-
-Description:
+### Description:
 
 Returns hello birthday message for the given user
 
-Request:
+#### Request:
 
 ``` bash
 Get /hello/<username>
 ```
 
-Response:
+#### Response:
 
 ``` bash
 200 OK
 ```
 
-Response Examples:
+### Response Examples:
 
-- If username’s birthday is in N days:
+#### If username’s birthday is in N days:
 
-   ``` bash
-   {
-       “message”: “Hello, <username>! Your birthday is in N day(s)”
-   }
-   ```
+``` bash
+{
+   “message”: “Hello, <username>! Your birthday is in N day(s)”
+}
+```
 
-- If username’s birthday is today:
+#### If username’s birthday is today:
 
-   ``` bash
-   {
-      “message”: “Hello, <username>! Happy birthday!”
-   }
-   ```
+``` bash
+{
+  “message”: “Hello, <username>! Happy birthday!”
+}
+```
+
+## Note:
+
+**username must contain only letters.**
+
+**YYYY-MM-DD must be a date before the today date.**
+
+---
 
 ### Built With
 
 * [![ktor][ktor]][ktor-url]
 * [![gradle][gradle]][gradle-url]
 * [![postgres][postgres]][postgres-url]
+
+---
 
 ## Try it:
 
