@@ -112,6 +112,7 @@ Get /hello/<username>
 
 ### System diagram to deploy on AWS
 
+![System Architecture AWS][system-architecture]
 
 ---
 
@@ -184,6 +185,8 @@ Get /hello/<username>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[system-architecture]: .github/images/system-architecture-aws.jpg
 
 [ktor]: https://img.shields.io/badge/Ktor-v.2.1.2-blue
 
